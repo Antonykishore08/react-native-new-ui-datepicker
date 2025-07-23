@@ -1,34 +1,32 @@
-![react-native-ui-datepicker](https://user-images.githubusercontent.com/7857656/227187674-93012672-495d-4955-b4d3-46c3d016684e.jpg)
+![react-native-new-ui-datepicker](https://user-images.githubusercontent.com/7857656/227187674-93012672-495d-4955-b4d3-46c3d016684e.jpg)
 
 ---
 
-# react-native-ui-datepicker
+# react-native-new-ui-datepicker
 
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/farhoudshapouran/react-native-ui-datepicker/blob/main/LICENSE)
 
-DateTimePicker component for React Native that allows you to create a customizable date and time picker. The component uses [Day.js](https://day.js.org/) library and it contains a set of style props that allows you to change every item of calendar based on your own UI design. Please visit [demo](https://farhoudshapouran.github.io/react-native-ui-datepicker/).
+DateTimePicker component for React Native that allows you to create a customizable date and time picker. The component uses [Day.js](https://day.js.org/) library and it contains a set of style props that allows you to change every item of calendar based on your own UI design. Please visit [demo](https://farhoudshapouran.github.io/react-native-new-ui-datepicker/).
 
 <p align="center">
-<img src="/.github/images/react-native-ui-datepicker-example.gif" height="500" />
+<img src="/.github/images/react-native-new-ui-datepicker-example.gif" height="500" />
 </p>
 
 ## Installation
 
 ```sh
-npm install react-native-ui-datepicker
+npm install react-native-new-ui-datepicker
 ```
 
 Or
 
 ```sh
-yarn add react-native-ui-datepicker
+yarn add react-native-new-ui-datepicker
 ```
 
 ## Usage
 
 ```js
-import DateTimePicker from 'react-native-ui-datepicker';
+import DateTimePicker from 'react-native-new-ui-datepicker';
 import dayjs from 'dayjs';
 
 export default function App() {
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
 
 For more, take a look at the `/example` directory.
 
-![react-native-ui-datepicker-styles](https://user-images.githubusercontent.com/7857656/227260476-30ee8c25-f809-4dcf-bccf-cd1ffab8795a.jpg)
+![react-native-new-ui-datepicker-styles](https://user-images.githubusercontent.com/7857656/227260476-30ee8c25-f809-4dcf-bccf-cd1ffab8795a.jpg)
 
 ## Calendar props
 
@@ -131,7 +129,7 @@ For more, take a look at the `/example` directory.
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 
-## Consider supporting with a ⭐️ [Star on GitHub](https://github.com/farhoudshapouran/react-native-ui-datepicker)
+## Consider supporting with a ⭐️ [Star on GitHub](https://github.com/farhoudshapouran/react-native-new-ui-datepicker)
 
 If you are using the library in one of your projects, please consider supporting it with a star.
 
