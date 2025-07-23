@@ -34,7 +34,7 @@ interface Props {
   infiniteScroll?: boolean;
 }
 
-const REPEAT_COUNT = 1000;
+const REPEAT_COUNT = 50;
 
 const WheelPicker: React.FC<Props> = ({
   selectedIndex,
@@ -45,8 +45,8 @@ const WheelPicker: React.FC<Props> = ({
   itemStyle = {},
   itemTextStyle = {},
   itemHeight = 40,
-  scaleFunction = (x: number) => 1.0 ** x,
-  rotationFunction = (x: number) => 1 - Math.pow(1 / 2, x),
+  scaleFunction = () => 1,
+  rotationFunction = () => 0,
   opacityFunction = (x: number) => Math.pow(1 / 3, x),
   visibleRest = 2,
   decelerationRate = 'fast',
@@ -61,31 +61,32 @@ const WheelPicker: React.FC<Props> = ({
   const middleBatch = infiniteScroll ? Math.floor(REPEAT_COUNT / 2) : 0;
 
   const extendedOptions = useMemo(() => {
-    return infiniteScroll ? Array(REPEAT_COUNT).fill(options).flat() : options;
+    if (!infiniteScroll) return options;
+    const repeated: string[] = [];
+    for (let i = 0; i < REPEAT_COUNT; i++) {
+      repeated.push(...options);
+    }
+    return repeated;
   }, [options, infiniteScroll]);
 
   const paddedOptions = useMemo(() => {
-    const array: (string | null)[] = [...extendedOptions];
-    for (let i = 0; i < visibleRest; i++) {
-      array.unshift(null);
-      array.push(null);
-    }
-    return array;
+    const fillers = Array(visibleRest).fill(null);
+    return [...fillers, ...extendedOptions, ...fillers];
   }, [extendedOptions, visibleRest]);
 
   const offsets = useMemo(
-    () => [...Array(paddedOptions.length)].map((_, i) => i * itemHeight),
-    [paddedOptions, itemHeight]
+    () => Array.from({ length: paddedOptions.length }, (_, i) => i * itemHeight),
+    [paddedOptions.length, itemHeight]
   );
 
   const currentScrollIndex = useMemo(
     () => Animated.add(Animated.divide(scrollY, itemHeight), visibleRest),
-    [visibleRest, scrollY, itemHeight]
+    [scrollY, itemHeight, visibleRest]
   );
 
   const initialIndex = useMemo(
     () => middleBatch * options.length + selectedIndex,
-    [selectedIndex, options.length, middleBatch]
+    [middleBatch, options.length, selectedIndex]
   );
 
   const handleMomentumScrollEnd = (
@@ -113,10 +114,12 @@ const WheelPicker: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    flatListRef.current?.scrollToIndex({
-      index: initialIndex,
-      animated: false,
-    });
+    setTimeout(() => {
+      flatListRef.current?.scrollToIndex({
+        index: initialIndex,
+        animated: false,
+      });
+    }, 10);
   }, [initialIndex]);
 
   return (
@@ -147,6 +150,10 @@ const WheelPicker: React.FC<Props> = ({
         snapToOffsets={offsets}
         decelerationRate={decelerationRate}
         initialScrollIndex={initialIndex}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+        initialNumToRender={visibleRest * 2 + 1}
+        removeClippedSubviews={true}
         getItemLayout={(_, index) => ({
           length: itemHeight,
           offset: itemHeight * index,
@@ -156,7 +163,6 @@ const WheelPicker: React.FC<Props> = ({
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item: option, index }) => (
           <WheelPickerItem
-            key={`option-${index}`}
             index={index}
             option={option}
             style={itemStyle}
@@ -175,3 +181,5 @@ const WheelPicker: React.FC<Props> = ({
 };
 
 export default WheelPicker;
+
+
