@@ -81,6 +81,7 @@ const DateTimePicker = (
     onChange,
     initialView = 'day',
     height,
+    is24Hours = false,
     ...rest
   } = props;
 
@@ -187,7 +188,7 @@ const DateTimePicker = (
         payload: { dates },
       });
     }
-  }, [mode, date, startDate, endDate, dates, minDate, timePicker]);
+  }, [mode, date, startDate, endDate, dates, minDate, timePicker,is24Hours]);
 
   const setCalendarView = useCallback((view: CalendarViews) => {
     dispatch({ type: CalendarActionKind.SET_CALENDAR_VIEW, payload: view });
@@ -242,7 +243,7 @@ const DateTimePicker = (
         }
       }
     },
-    [onChange, mode, state.startDate, state.endDate, state.dates, timePicker]
+    [onChange, mode, state.startDate, state.endDate, state.dates, timePicker,is24Hours]
   );
 
   const onSelectMonth = useCallback(
@@ -317,6 +318,7 @@ const DateTimePicker = (
       onSelectYear,
       onChangeMonth,
       onChangeYear,
+      is24Hours
     }),
     [
       locale,
@@ -336,6 +338,7 @@ const DateTimePicker = (
       onChangeMonth,
       onChangeYear,
       state,
+      is24Hours
     ]
   );
 

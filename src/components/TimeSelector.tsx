@@ -17,30 +17,32 @@ const createNumberList = (num: number) =>
     index < 10 ? `0${index}` : `${index}`
   );
 
-const hours12 = createNumberList(12).map((h, i) =>
+const hours12 = createNumberList(12).map((_, i) =>
   (i + 1).toString().padStart(2, '0')
 );
+const hours24 = createNumberList(24);
 const minutes = createNumberList(60);
 const amPmOptions = ['AM', 'PM'];
 
 const TimeSelector = () => {
-  const { date, onSelectDate, theme } = useCalendarContext();
+  const { date, onSelectDate, theme,is24Hours } = useCalendarContext();
   const { hour, minute } = useMemo(() => getParsedDate(date), [date]);
 
   const isPM = hour >= 12;
   const hour12 = hour % 12 === 0 ? 12 : hour % 12;
-
   const [amPm, setAmPm] = useState<'AM' | 'PM'>(isPM ? 'PM' : 'AM');
 
   const handleChangeHour = useCallback(
     (value: number) => {
-      let newHour = value + 1;
-      if (amPm === 'PM' && newHour !== 12) newHour += 12;
-      if (amPm === 'AM' && newHour === 12) newHour = 0;
+      let newHour = is24Hours ? value : value + 1;
+      if (!is24Hours) {
+        if (amPm === 'PM' && newHour !== 12) newHour += 12;
+        if (amPm === 'AM' && newHour === 12) newHour = 0;
+      }
       const newDate = getDate(date).hour(newHour);
       onSelectDate(getFormated(newDate));
     },
-    [date, onSelectDate, amPm]
+    [date, onSelectDate, amPm, is24Hours]
   );
 
   const handleChangeMinute = useCallback(
@@ -80,10 +82,10 @@ const TimeSelector = () => {
   return (
     <View style={styles.container} testID="time-selector">
       <View style={timePickerContainerStyle}>
-        <View style={{}}>
+        <View style={styles.wheelContainer}>
           <Wheel
-            value={hour12 - 1}
-            items={hours12}
+            value={is24Hours ? hour : hour12 - 1}
+            items={is24Hours ? hours24 : hours12}
             setValue={handleChangeHour}
             theme={theme}
           />
@@ -91,7 +93,7 @@ const TimeSelector = () => {
 
         <Text style={timePickerTextStyle}>:</Text>
 
-        <View style={{}}>
+        <View style={styles.wheelContainer}>
           <Wheel
             value={minute}
             items={minutes}
@@ -100,14 +102,16 @@ const TimeSelector = () => {
           />
         </View>
 
-        <View style={{paddingLeft: 10}}>
-          <Wheel
-            value={amPm === 'AM' ? 0 : 1}
-            items={amPmOptions}
-            setValue={handleChangeAmPm}
-            theme={theme}
-          />
-        </View>
+        {!is24Hours && (
+          <View style={styles.amPmWheelContainer}>
+            <Wheel
+              value={amPm === 'AM' ? 0 : 1}
+              items={amPmOptions}
+              setValue={handleChangeAmPm}
+              theme={theme}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -120,14 +124,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   wheelContainer: {
-    flex: 1,
-    minWidth: 60,
-    alignItems: 'center',
+    
+  
+    
   },
   amPmWheelContainer: {
-    flex: 0.8,
-    minWidth: 50,
-    alignItems: 'center',
+  
+    paddingLeft: 10,
   },
   timePickerContainer: {
     alignItems: 'center',
