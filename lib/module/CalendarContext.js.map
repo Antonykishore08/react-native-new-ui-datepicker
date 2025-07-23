@@ -1,0 +1,1 @@
+{"version":3,"names":["createContext","useContext","CalendarContext","useCalendarContext"],"sourceRoot":"../../src","sources":["CalendarContext.tsx"],"mappings":"AAAA,SAASA,aAAa,EAAEC,UAAU,QAAQ,OAAO;AAwBjD,MAAMC,eAAe,gBAAGF,aAAa,CAAC,CAAC,CAAwB,CAAC;AAEhE,OAAO,MAAMG,kBAAkB,GAAGA,CAAA,KAAMF,UAAU,CAACC,eAAe,CAAC;AAEnE,eAAeA,eAAe","ignoreList":[]}
