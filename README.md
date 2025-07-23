@@ -123,6 +123,7 @@ For more, take a look at the `/example` directory.
 | timePickerIndicatorStyle     | `ViewStyle`                    | `null`      | Defines selected time indicator style                                                         |
 | timePickerDecelerationRate   | `'normal'`, `'fast'`, `number` | `'fast'`    | Defines how quickly the underlying scroll view decelerates after the user lifts their finger. |
 | selectedRangeBackgroundColor | `string`                       | `undefined` | Defines selected range background color.                                                      |
+| is24Hours                    | `boolean`                      | `false`     | Defines time picker to 24 hours format(default its 12 hours)                                  |
 
 ## 🙏 Acknowledgements
 
