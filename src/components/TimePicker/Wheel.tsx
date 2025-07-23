@@ -9,6 +9,7 @@ type WheelProps = {
   setValue?: (value: number) => void;
   items: string[];
   theme: CalendarThemeProps;
+  infiniteScroll?: boolean;
 };
 
 const Wheel = (props: WheelProps) => {
