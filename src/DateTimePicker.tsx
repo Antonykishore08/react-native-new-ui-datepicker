@@ -84,7 +84,6 @@ const DateTimePicker = (
     is24Hours = false,
     ...rest
   } = props;
-
   dayjs.locale(locale);
 
   const initialCalendarView: CalendarViews = useMemo(

@@ -8,6 +8,7 @@ interface WheelProps {
   setValue?: (value: number) => void;
   items: string[];
   theme: CalendarThemeProps;
+  infiniteScroll?: boolean; 
 }
 
 const WheelNative = ({
@@ -15,6 +16,7 @@ const WheelNative = ({
   setValue = () => {},
   items,
   theme,
+  infiniteScroll = true,
 }: WheelProps) => {
   const containerStyle = useMemo(
     () => ({ ...styles.container, ...theme?.timePickerContainerStyle }),
@@ -36,6 +38,7 @@ const WheelNative = ({
       selectedIndicatorStyle={{ ...theme?.timePickerIndicatorStyle }}
       itemHeight={45}
       decelerationRate={theme?.timePickerDecelerationRate}
+      infiniteScroll={infiniteScroll}
     />
   );
 };

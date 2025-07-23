@@ -31,7 +31,10 @@ interface Props {
   visibleRest?: number;
   decelerationRate?: 'normal' | 'fast' | number;
   flatListProps?: Omit<FlatListProps<string | null>, 'data' | 'renderItem'>;
+  infiniteScroll?: boolean;
 }
+
+const REPEAT_COUNT = 1000;
 
 const WheelPicker: React.FC<Props> = ({
   selectedIndex,
@@ -49,19 +52,26 @@ const WheelPicker: React.FC<Props> = ({
   decelerationRate = 'fast',
   containerProps = {},
   flatListProps = {},
+  infiniteScroll = true,
 }) => {
   const flatListRef = useRef<FlatList>(null);
-  const [scrollY] = useState(new Animated.Value(selectedIndex * itemHeight));
+  const [scrollY] = useState(new Animated.Value(0));
 
   const containerHeight = (1 + visibleRest * 2) * itemHeight;
+  const middleBatch = infiniteScroll ? Math.floor(REPEAT_COUNT / 2) : 0;
+
+  const extendedOptions = useMemo(() => {
+    return infiniteScroll ? Array(REPEAT_COUNT).fill(options).flat() : options;
+  }, [options, infiniteScroll]);
+
   const paddedOptions = useMemo(() => {
-    const array: (string | null)[] = [...options];
+    const array: (string | null)[] = [...extendedOptions];
     for (let i = 0; i < visibleRest; i++) {
       array.unshift(null);
       array.push(null);
     }
     return array;
-  }, [options, visibleRest]);
+  }, [extendedOptions, visibleRest]);
 
   const offsets = useMemo(
     () => [...Array(paddedOptions.length)].map((_, i) => i * itemHeight),
@@ -73,48 +83,41 @@ const WheelPicker: React.FC<Props> = ({
     [visibleRest, scrollY, itemHeight]
   );
 
+  const initialIndex = useMemo(
+    () => middleBatch * options.length + selectedIndex,
+    [selectedIndex, options.length, middleBatch]
+  );
+
   const handleMomentumScrollEnd = (
     event: NativeSyntheticEvent<NativeScrollEvent>
   ) => {
-    // Due to list bounciness when scrolling to the start or the end of the list
-    // the offset might be negative or over the last item.
-    // We therefore clamp the offset to the supported range.
-    const offsetY = Math.min(
-      itemHeight * (options.length - 1),
-      Math.max(event.nativeEvent.contentOffset.y, 0)
-    );
+    const offsetY = event.nativeEvent.contentOffset.y;
+    let index = Math.round(offsetY / itemHeight);
+    const realIndex = infiniteScroll ? index % options.length : index;
 
-    let index = Math.floor(Math.floor(offsetY) / itemHeight);
-    const last = Math.floor(offsetY % itemHeight);
-    if (last > itemHeight / 2) {
-      index++;
+    if (realIndex !== selectedIndex) {
+      onChange(realIndex);
     }
 
-    if (index !== selectedIndex) {
-      onChange(index);
+    if (infiniteScroll) {
+      const middleIndex = middleBatch * options.length + realIndex;
+      if (Math.abs(index - middleIndex) > options.length) {
+        requestAnimationFrame(() => {
+          flatListRef.current?.scrollToIndex({
+            index: middleIndex,
+            animated: false,
+          });
+        });
+      }
     }
   };
 
   useEffect(() => {
-    if (selectedIndex < 0 || selectedIndex >= options.length) {
-      throw new Error(
-        `Selected index ${selectedIndex} is out of bounds [0, ${
-          options.length - 1
-        }]`
-      );
-    }
-  }, [selectedIndex, options]);
-
-  /**
-   * If selectedIndex is changed from outside (not via onChange) we need to scroll to the specified index.
-   * This ensures that what the user sees as selected in the picker always corresponds to the value state.
-   */
-  useEffect(() => {
     flatListRef.current?.scrollToIndex({
-      index: selectedIndex,
-      animated: Platform.OS === 'ios',
+      index: initialIndex,
+      animated: false,
     });
-  }, [selectedIndex, itemHeight]);
+  }, [initialIndex]);
 
   return (
     <View
@@ -143,7 +146,7 @@ const WheelPicker: React.FC<Props> = ({
         onMomentumScrollEnd={handleMomentumScrollEnd}
         snapToOffsets={offsets}
         decelerationRate={decelerationRate}
-        initialScrollIndex={selectedIndex}
+        initialScrollIndex={initialIndex}
         getItemLayout={(_, index) => ({
           length: itemHeight,
           offset: itemHeight * index,

@@ -88,6 +88,7 @@ const TimeSelector = () => {
             items={is24Hours ? hours24 : hours12}
             setValue={handleChangeHour}
             theme={theme}
+            infiniteScroll={true}
           />
         </View>
 
@@ -99,6 +100,7 @@ const TimeSelector = () => {
             items={minutes}
             setValue={handleChangeMinute}
             theme={theme}
+            infiniteScroll={true}
           />
         </View>
 
@@ -109,6 +111,7 @@ const TimeSelector = () => {
               items={amPmOptions}
               setValue={handleChangeAmPm}
               theme={theme}
+              infiniteScroll={false}
             />
           </View>
         )}
