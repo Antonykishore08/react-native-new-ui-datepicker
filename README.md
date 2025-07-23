@@ -4,8 +4,7 @@
 
 # react-native-new-ui-datepicker
 
-
-DateTimePicker component for React Native that allows you to create a customizable date and time picker. The component uses [Day.js](https://day.js.org/) library and it contains a set of style props that allows you to change every item of calendar based on your own UI design. Please visit [demo](https://farhoudshapouran.github.io/react-native-new-ui-datepicker/).
+DateTimePicker component for React Native that allows you to create a customizable date and time picker. The component uses [Day.js](https://day.js.org/) library and it contains a set of style props that allows you to change every item of calendar based on your own UI design.
 
 <p align="center">
 <img src="/.github/images/react-native-new-ui-datepicker-example.gif" height="500" />
@@ -125,11 +124,11 @@ For more, take a look at the `/example` directory.
 | timePickerDecelerationRate   | `'normal'`, `'fast'`, `number` | `'fast'`    | Defines how quickly the underlying scroll view decelerates after the user lifts their finger. |
 | selectedRangeBackgroundColor | `string`                       | `undefined` | Defines selected range background color.                                                      |
 
-## Contributing
+## 🙏 Acknowledgements
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+Big thanks to [@farhoudshapouran](https://github.com/farhoudshapouran) for the original inspiration and base structure of this library.
 
-## Consider supporting with a ⭐️ [Star on GitHub](https://github.com/farhoudshapouran/react-native-new-ui-datepicker)
+## Consider supporting with a ⭐️ [Star on GitHub](https://github.com/Antonykishore08/react-native-new-ui-datepicker)
 
 If you are using the library in one of your projects, please consider supporting it with a star.
 
