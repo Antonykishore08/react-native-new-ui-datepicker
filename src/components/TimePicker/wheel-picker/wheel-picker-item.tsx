@@ -54,23 +54,9 @@ const WheelPickerItem: React.FC<ItemProps> = ({
   });
 
   const opacity = relativeScrollIndex.interpolate({
-    inputRange: (() => {
-      const range = [0];
-      for (let i = 1; i <= visibleRest + 1; i++) {
-        range.unshift(-i);
-        range.push(i);
-      }
-      return range;
-    })(),
-    outputRange: (() => {
-      const range = [1];
-      for (let x = 1; x <= visibleRest + 1; x++) {
-        const y = opacityFunction(x);
-        range.unshift(y);
-        range.push(y);
-      }
-      return range;
-    })(),
+    inputRange: [-visibleRest, 0, visibleRest],
+    outputRange: [0.3, 1, 0.3],
+    extrapolate: 'clamp',
   });
 
   const scale = relativeScrollIndex.interpolate({

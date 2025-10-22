@@ -34,7 +34,7 @@ interface Props {
   infiniteScroll?: boolean;
 }
 
-const REPEAT_COUNT = 50;
+const REPEAT_COUNT = 80;
 
 const WheelPicker: React.FC<Props> = ({
   selectedIndex,
@@ -119,7 +119,7 @@ const WheelPicker: React.FC<Props> = ({
         index: initialIndex,
         animated: false,
       });
-    }, 10);
+    }, 500);
   }, [initialIndex]);
 
   return (
@@ -150,10 +150,10 @@ const WheelPicker: React.FC<Props> = ({
         snapToOffsets={offsets}
         decelerationRate={decelerationRate}
         initialScrollIndex={initialIndex}
-        maxToRenderPerBatch={10}
-        windowSize={5}
+        maxToRenderPerBatch={50}
+        windowSize={10}
         initialNumToRender={visibleRest * 2 + 1}
-        removeClippedSubviews={true}
+        removeClippedSubviews={false}
         getItemLayout={(_, index) => ({
           length: itemHeight,
           offset: itemHeight * index,
@@ -171,7 +171,7 @@ const WheelPicker: React.FC<Props> = ({
             currentScrollIndex={currentScrollIndex}
             scaleFunction={scaleFunction}
             rotationFunction={rotationFunction}
-            opacityFunction={opacityFunction}
+            opacityFunction={(x) => (x === 0 ? 1 : Math.max(0.5, 1 - Math.abs(x) / visibleRest))}
             visibleRest={visibleRest}
           />
         )}
