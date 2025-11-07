@@ -69,7 +69,8 @@ const TimeSelector = () => {
   const timePickerContainerStyle: ViewStyle = useMemo(
     () => ({
       ...styles.timePickerContainer,
-      flexDirection: I18nManager.getConstants().isRTL ? 'row-reverse' : 'row',
+      // flexDirection: I18nManager.getConstants().isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row',
     }),
     []
   );
