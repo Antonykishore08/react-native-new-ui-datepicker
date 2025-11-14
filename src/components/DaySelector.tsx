@@ -92,7 +92,7 @@ const DaySelector = () => {
               (isFirstDayOfMonth && selectedEndDay) ||
               (isLastDayOfMonth && selectedStartDay) ||
               dayjs(startDate).format('DDMMYYYY') ===
-                dayjs(endDate).format('DDMMYYYY')
+              dayjs(endDate).format('DDMMYYYY')
             ) {
               inRange = false;
             }
@@ -103,13 +103,14 @@ const DaySelector = () => {
             const yesterday = dayjs(day.date).add(-1, 'day');
             const tomorrow = dayjs(day.date).add(1, 'day');
 
-            const yesterdaySelected = safeDates.some((d) =>
-              areDatesOnSameDay(d, yesterday)
-            );
-            const tomorrowSelected = safeDates.some((d) =>
-              areDatesOnSameDay(d, tomorrow)
-            );
-
+            // const yesterdaySelected = safeDates.some((d) =>
+            //   areDatesOnSameDay(d, yesterday)
+            // );
+            // const tomorrowSelected = safeDates.some((d) =>
+            //   areDatesOnSameDay(d, tomorrow)
+            // );
+            const yesterdaySelected = null
+            const tomorrowSelected = null
             if (isSelected) {
               if (tomorrowSelected && yesterdaySelected) {
                 inRange = true;
@@ -170,6 +171,8 @@ const DaySelector = () => {
     ]
   );
 
+  
+
   const handleSelectDate = useCallback(
     (selectedDate: string) => {
       const newDate = getDate(selectedDate).hour(hour).minute(minute);
@@ -190,6 +193,7 @@ const DaySelector = () => {
               date={day.date}
               text={day.text}
               disabled={day.disabled}
+              isdisabled={day.isdisabled}
               isCurrentMonth={day.isCurrentMonth}
               theme={theme}
               isToday={day.isToday}

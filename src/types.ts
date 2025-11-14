@@ -61,6 +61,7 @@ export interface IDayObject {
   day: number;
   date: string;
   disabled: boolean;
+  isdisabled: boolean;
   isCurrentMonth: boolean;
   dayOfMonth?: number;
   inRange: boolean;

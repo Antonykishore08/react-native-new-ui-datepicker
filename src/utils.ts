@@ -276,6 +276,7 @@ const generateDayObject = (
     day: day,
     date: getFormatedDate(date, DATE_FORMAT),
     disabled: isDateDisabled(date, { minDate, maxDate, disabledDates }),
+    isdisabled: isDateDisabled(date, { disabledDates }),
     isCurrentMonth,
     dayOfMonth,
   };

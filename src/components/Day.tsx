@@ -13,6 +13,7 @@ interface Props extends Omit<IDayObject, 'day'> {
   onSelectDate: (date: string) => void;
   theme: CalendarThemeProps;
   height?: number;
+  
 }
 
 export const EmptyDay = React.memo(({ height }: { height?: number }) => (
@@ -23,6 +24,7 @@ function Day({
   date,
   text,
   disabled,
+  isdisabled,
   isCurrentMonth,
   isToday,
   isSelected,
@@ -67,7 +69,7 @@ function Day({
       borderColor: selectedItemColor,
       backgroundColor: selectedItemColor,
     },
-    disabled && disabledDateContainerStyle,
+    isdisabled && disabledDateContainerStyle,
   ]);
 
   const textStyle = StyleSheet.flatten([
@@ -76,7 +78,7 @@ function Day({
       : isToday
         ? { ...calendarTextStyle, color: selectedItemColor, ...todayTextStyle }
         : calendarTextStyle,
-    disabled && disabledDateTextStyle,
+    isdisabled && disabledDateTextStyle,
   ]);
 
   return (
@@ -157,6 +159,7 @@ const customComparator = (
   Object.is(prevProps.date, nextProps.date) &&
   Object.is(prevProps.text, nextProps.text) &&
   prevProps.disabled === nextProps.disabled &&
+  prevProps.isdisabled === nextProps.isdisabled &&
   prevProps.isCurrentMonth === nextProps.isCurrentMonth &&
   prevProps.isToday === nextProps.isToday &&
   prevProps.isSelected === nextProps.isSelected &&
