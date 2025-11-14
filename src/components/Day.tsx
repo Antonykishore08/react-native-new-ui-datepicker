@@ -80,7 +80,7 @@ function Day({
         ? { ...calendarTextStyle, color: selectedItemColor, ...todayTextStyle }
         : calendarTextStyle,
     isdisabled && disabledDateTextStyle,
-    disabled ?dateOutofRangeTextStyle?dateOutofRangeTextStyle: { color: 'rgba(0, 0, 0, 0.5)' }:{},
+    (disabled&&!isdisabled) ?dateOutofRangeTextStyle?dateOutofRangeTextStyle: { color: 'rgba(0, 0, 0, 0.5)' }:{},
   ]);
 
   return (
