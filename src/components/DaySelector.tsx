@@ -193,7 +193,7 @@ const DaySelector = () => {
               date={day.date}
               text={day.text}
               disabled={day.disabled}
-              isdisabled={day.isdisabled}
+              isdisabled={day.isdisabled} 
               isCurrentMonth={day.isCurrentMonth}
               theme={theme}
               isToday={day.isToday}

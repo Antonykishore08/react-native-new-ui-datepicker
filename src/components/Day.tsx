@@ -49,7 +49,8 @@ function Day({
     todayTextStyle,
     selectedRangeBackgroundColor,
     disabledDateContainerStyle,
-    disabledDateTextStyle
+    disabledDateTextStyle,
+    dateOutofRangeTextStyle
   } = theme;
 
   const style = styles(height || CALENDAR_HEIGHT);
@@ -79,6 +80,7 @@ function Day({
         ? { ...calendarTextStyle, color: selectedItemColor, ...todayTextStyle }
         : calendarTextStyle,
     isdisabled && disabledDateTextStyle,
+    disabled ?dateOutofRangeTextStyle?dateOutofRangeTextStyle: { color: 'rgba(0, 0, 0, 0.5)' }:{},
   ]);
 
   return (

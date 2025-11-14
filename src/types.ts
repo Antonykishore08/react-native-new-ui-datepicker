@@ -49,6 +49,7 @@ export type CalendarThemeProps = {
   selectedRangeBackgroundColor?: string;
   disabledDateContainerStyle?: ViewStyle;
   disabledDateTextStyle?: TextStyle;
+  dateOutofRangeTextStyle?: TextStyle;
 };
 
 export type HeaderProps = {
