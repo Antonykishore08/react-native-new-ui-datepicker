@@ -46,6 +46,8 @@ function Day({
     todayContainerStyle,
     todayTextStyle,
     selectedRangeBackgroundColor,
+    disabledDateContainerStyle,
+    disabledDateTextStyle
   } = theme;
 
   const style = styles(height || CALENDAR_HEIGHT);
@@ -65,14 +67,16 @@ function Day({
       borderColor: selectedItemColor,
       backgroundColor: selectedItemColor,
     },
+    disabled && disabledDateContainerStyle,
   ]);
 
   const textStyle = StyleSheet.flatten([
     isSelected
       ? { color: '#fff', ...selectedTextStyle }
       : isToday
-      ? { ...calendarTextStyle, color: selectedItemColor, ...todayTextStyle }
-      : calendarTextStyle,
+        ? { ...calendarTextStyle, color: selectedItemColor, ...todayTextStyle }
+        : calendarTextStyle,
+    disabled && disabledDateTextStyle,
   ]);
 
   return (

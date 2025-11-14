@@ -7,7 +7,7 @@
 DateTimePicker component for React Native that allows you to create a customizable date and time picker. The component uses [Day.js](https://day.js.org/) library and it contains a set of style props that allows you to change every item of calendar based on your own UI design.
 
 <p align="center">
-<img src="/.github/images/react-native-new-ui-datepicker-example.gif" height="500" />
+<img src="https://github.com/farhoudshapouran/react-native-ui-datepicker/blob/HEAD/.github/images/rnui-datepicker.png" height="500" />
 </p>
 
 ## Installation
@@ -120,7 +120,9 @@ For more, take a look at the `/example` directory.
 | weekDaysTextStyle            | `TextStyle`                    | `null`      | Defines weekdays texts style                                                                  |
 | timePickerContainerStyle     | `ViewStyle`                    | `null`      | Defines time picker container style                                                           |
 | timePickerTextStyle          | `TextStyle`                    | `null`      | Defines time picker (Hours, Minutes) texts style                                              |
-| timePickerIndicatorStyle     | `ViewStyle`                    | `null`      | Defines selected time indicator style                                                         |
+| timePickerIndicatorStyle     | `ViewStyle`                    | `null`      | Defines selected time indicator style                                                          |
+| disabledDateContainerStyle          | `ViewStyle`                    | `null`      | Defines disabled date container style                                                                 |
+| disabledDateTextStyle               | `TextStyle`                    | `null`      | Defines disabled date text 
 | timePickerDecelerationRate   | `'normal'`, `'fast'`, `number` | `'fast'`    | Defines how quickly the underlying scroll view decelerates after the user lifts their finger. |
 | selectedRangeBackgroundColor | `string`                       | `undefined` | Defines selected range background color.                                                      |
 | is24Hours                    | `boolean`                      | `false`     | Defines time picker to 24 hours format(default its 12 hours)                                  |
